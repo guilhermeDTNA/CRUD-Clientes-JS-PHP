@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import $ from 'jquery';
+import { DataGrid } from '@material-ui/data-grid';
 
 export default class App extends Component {
 
@@ -6,9 +8,9 @@ export default class App extends Component {
     super(props);
     this.state={
       customers:[],
+      rows: [],
       isLoaded: false,
-      error: '',
-      data: []
+      error: ''
     }
     this.showCustomers = this.showCustomers.bind(this);
   }
@@ -38,80 +40,146 @@ export default class App extends Component {
 
   showCustomers(){
 
-    var data = [];
+    var rows = [];
+    //Armazena cada linha
+    var row = '{';
+
+
+    let state = this.state;
 
     for (var i=0; i<this.state.customers.length; i++){
       for(var j=0; j<this.state.customers[i].length; j++){
 
-        //console.log(this.state.customers[i][j]);
-        var cell = this.state.customers[i][j].split(":");
-        data.push(cell[1]);
+        //Se ainda não chegou no último elemento da linha
+        if (j!==this.state.customers[i].length-1){
+          row = row+''+this.state.customers[i][j];
+        } else{
+          row = row+''+this.state.customers[i][j]; 
+          rows.push(row+'},');
+          //Limpa a linha a cada mudança de linha
+          row = '{';
+        }
 
         
+
+        //var cell = this.state.customers[i][j].split(":");
+        
+        //Adiciona em data o valor da célula
+        //data.push(cell[1]);
+
       }
     }
+    
 
-    this.setState({
-      data: data
-    });
+    //Calcula número de linhas da tabela
+    //var rows = 0;
+    
+    state.rows = rows;
+    //state.data = data;
 
-    for (var i=0; i<this.state.data.length; i++){
-      console.log(this.state.data[i]);
-    }
+    this.setState(state);
   }
 
 
   render(){
-    let state = this.state;
-    /*
-          <h1>Lista de inspeção</h1>
 
+    return (
       <div>
-        {
-          this.state.customers.map((cliente, i) => (
-            <article key={cliente.id}>
-              <strong>{cliente.nome}</strong>
-              <p>dt_inicio: {cliente.nascimento}</p>
-              <p>dt_fim: {cliente.telefone}</p>
-              <p>Nome: {this.state.cliente[i].nome}</p>
-            </article>
-          ))
-        }
+
+
+      <Customer customers={this.state.customers} rows={this.state.rows} />
+
       </div>
-      */
-      for (var i=0; i<this.state.data.length; i++){
-        return (<div>{state.data[i]}</div>);
-      }
+      );
+  }
+}
 
-      return (
-        <div className="App">
+class Customer extends Component{
 
-
-
-
-        {state.customers.length}
-        {state.data[1]}
-
-
-        </div>
-        );
-    }
+  constructor(props){
+    super(props);
   }
 
-  class Customer extends Component{
 
-    constructor(props){
-      super(props);
-    }
 
-    render(){
+  render(){
 
-      console.log(this.props.customers[0]);
+    /*
+    var body = this.props.rows.map((item, key) =>{
+      return (
+        <td key={key}>{item}</td>
+        );
+    })
+    
+           <table className="myTable">
+        <thead>
+        <tr>
+        <th>id</th>
+        <th>Nome</th>
+        <th>Cpf</th>
+        <th>Data de nascimento</th>
+        <th>Celular</th>
+        <th>E-mail</th>
+        <th>Endereço</th>
+        <th>Observação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        {body}
+        </tr>
+        </tbody>
+        </table>
+        */   
 
-      return(
-        <>
-        <p>{this.props.customers}</p>
-        </>
-        )
+        if(this.props.rows.length >0){
+          return(
+            <>
+
+            {this.props.rows.map(function(item, i){
+              
+              var custom = item.split('{')+'';
+              custom = custom.split('}')+'';
+              custom = custom.split(':')+'';
+              custom = custom.split(',');
+
+              //O i é o id de cada objeto, é o que será enviado quando tiver requisições de edição ou remoção
+              
+          //custom = custom.split(' ');
+          
+          //Colocar para alinhar por coluna
+          return (
+
+            <div key={i}>
+            <div className="id">{custom[1]}</div>
+            <div className="id">{custom[2]}</div>
+            <div className="id">{custom[3]}</div>
+            <div className="id">{custom[4]}</div>
+            <div className="id">{custom[5]}</div>
+            <div className="id">{custom[6]}</div>
+            <div className="id">{custom[7]}</div>
+            <div className="id">{custom[8]}</div>
+            <div className="id">{custom[9]}</div>
+            <div className="id">{custom[10]}</div>
+            <div className="id">{custom[11]}</div>
+            <div className="id">{custom[12]}</div>
+            <div className="id">{custom[13]}</div>
+            <div className="id">{custom[14]}</div>
+            </div>
+
+            )
+        })
+          }
+
+
+
+          </>
+          )
+        }
+
+        else{
+          return (<><p>Nothing found!</p></>)
+        }
       }
     }
+
