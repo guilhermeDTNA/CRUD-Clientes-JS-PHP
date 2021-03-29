@@ -1,6 +1,8 @@
 import react, {Component} from 'react';
 import $ from 'jquery';
-import 'jquery-mask-plugin/dist/jquery.mask.min'; 
+
+import InputMask from 'react-input-mask';
+import MaterialInput from '@material-ui/core/Input'; 
 
 import ListCustomers from '../ListCustomers';
 import './styles.css';
@@ -32,17 +34,7 @@ export default class AddCustomer extends Component{
 
 		this.add = this.add.bind(this);
 	}
-
-	componentDidMount(){
-		$('#phone').mask('(00) 00000-0000', {
-			placeholder: '(DDD) 00000000'
-		});
-		
-		$('#birthdate').mask('00/00/0000', {
-			placeholder: '__/__/____'
-		});
-	}
-
+	
 	handleChangeName(event){
 		this.setState({name: event.target.value});
 	}
@@ -159,7 +151,7 @@ export default class AddCustomer extends Component{
 			Nome: <input required className="required" pattern="[a-zA-Z]+" type="text" value={this.state.name} onChange={this.handleChangeName} />
 			</td>
 			<td>
-			CPF: <input required type="number" value={this.state.cpf} onChange={this.handleChangeCPF} />
+			CPF: <input required type="number" pattern=".{11,}" value={this.state.cpf} onChange={this.handleChangeCPF} />
 			</td>
 			</tr>
 
@@ -169,7 +161,10 @@ export default class AddCustomer extends Component{
 			Data de nascimento: <input required type="date" value={this.state.birthdate} onChange={this.handleChangeBirthdate} className="birthdate" />
 			</td>
 			<td>
-			Celular: <input type="number" value={this.state.phone} onChange={this.handleChangePhone} className="phone" />
+			Celular: 
+			<InputMask required pattern=".{9, }.[0-9]+" alwaysShowMask value={this.state.phone} onChange={this.handleChangePhone} className="phone" mask="(99) 9 99999999" placeholder="(99) 9 99999999"/>
+
+			
 			</td>
 			</tr>
 
