@@ -8,10 +8,6 @@ try{
 
     $stmt->execute();
     $arrValues = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-    $customer=$inicioOBJ;
     
     for ($i=0; $i<sizeof($arrValues); $i++){
 

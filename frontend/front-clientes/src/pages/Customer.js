@@ -130,7 +130,8 @@ export default class Customer extends Component{
               }
             }>Deletar</button>
 
-            <Link to="/add"> <button>Adicionar</button> </Link>
+            <Link to="/cadastrar"> <button>Adicionar</button> </Link>
+            <Link to={`/editar/${item[1]}`}> <button>Editar</button> </Link>
             </div>
 
             </div>

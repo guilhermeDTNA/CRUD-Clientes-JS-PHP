@@ -5,10 +5,11 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import ListCustomers from './pages/ListCustomers';
 import Customer from './pages/Customer';
 import AddCustomer from './pages/AddCustomer/';
+import EditCustomer from './pages/EditCustomer/';
 
+import PageHeader from './PageHeader/';
 import Mistake from './pages/Mistake';
 
-//<Route path="/" component = {PageHeader} />
 
 //Componente que define quais as rotas e seus respectivos componentes a aplicação possui
 export default class Routes extends Component {
@@ -18,12 +19,13 @@ export default class Routes extends Component {
 		return(
 			<BrowserRouter>
 
-			
+			<Route path="/" component = {PageHeader} />
 
 			<Switch>
 
 			<Route exact path="/" component={ListCustomers} />
-			<Route exact path="/add" component={AddCustomer} />
+			<Route exact path="/cadastrar" component={AddCustomer} />
+			<Route exact path="/editar/:id" component={EditCustomer} />
 
 
 			<Route path="*" component = {Mistake} />

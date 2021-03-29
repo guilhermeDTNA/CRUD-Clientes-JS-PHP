@@ -3,20 +3,20 @@ import $ from 'jquery';
 
 import InputMask from 'react-input-mask';
 
-import './styles.css';
-
-export default class AddCustomer extends Component{
+export default class EditCustomer extends Component{
 
 	constructor(props) {
 		super(props);
 		this.state = {
+			id: this.props.match.params.id,
 			name: '',
 			cpf: '',
 			birthdate: '',
 			phone: '',
 			email: '',
 			address: '',
-			obs: ''
+			obs: '',
+			customer: ''
 		};
 
 		this.handleChangeName = this.handleChangeName.bind(this);
@@ -30,13 +30,35 @@ export default class AddCustomer extends Component{
 
 		this.validadeCPF = this.validadeCPF.bind(this);
 
-		this.add = this.add.bind(this);
+		this.updateCustomer = this.updateCustomer.bind(this);
+		this.splitCustomer = this.splitCustomer.bind(this);
 	}
 
+	componentDidMount(){
+		fetch('http://localhost/newmConexao/search.php?id='+this.state.id)
+		.then(res => res.json())
+		.then(
+			(result) => {
+				this.setState({
+					isLoaded: true,
+					customer: result
+				});
+			},
+
+			(error) => {
+				this.setState({
+					isLoaded: true,
+					error
+				});
+			},
+			)
+		.then(
+			this.splitCustomer
+		)
+	}
+	
 	handleChangeName(event){
-		let state = this.state;
-		state.name = event.target.value;
-		this.setState(state);
+		this.setState({name: event.target.value});
 	}
 
 	handleChangeCPF(event){
@@ -94,9 +116,9 @@ export default class AddCustomer extends Component{
 				result = sum % 11 < 2 ? 0 : 11 - sum % 11;
 				if (result != digits.charAt(1))
 					return false; //Inválido
-					return true;
-				}
-				else
+				return true;
+			}
+			else
 				return false; //Inválido
 			
 		}
@@ -111,18 +133,50 @@ export default class AddCustomer extends Component{
 		} else if (!this.validadeCPF()){
 			alert('CPF inválido!');
 		} else{
-			this.add();
+			this.updateCustomer();
 		}
 
 		
 		event.preventDefault();
 	}
 
-	add(){
+	//Função que busca o cliente e exibe suas informações no form
+	splitCustomer(){
+		let state = this.state;
+		let customer = JSON.stringify(state.customer);
+		
+		customer = customer.replace(/['"]+/g, '')
+		customer = customer.split('{')+'';
+        customer = customer.split('}')+'';
+
+        customer = customer.split('id:')+'';
+        customer = customer.split('name:')+'';
+        customer = customer.split('cpf:')+'';
+        customer = customer.split('birthdate:')+'';
+        customer = customer.split('phone:')+'';
+        customer = customer.split('email:')+'';
+        customer = customer.split('address:')+'';
+        customer = customer.split('obs:')+'';
+
+        customer = customer.split(',');
+
+        this.setState({
+        	name: customer[4],
+        	cpf: customer[6],
+        	birthdate: customer[8],
+        	phone: customer[10],
+        	email: customer[12],
+        	address: customer[14],
+        	
+        });
+        console.log(customer[16]);
+	}
+
+	updateCustomer(){
 		let state = this.state;
 		$.ajax({
 			type: "POST",
-			url: "http://localhost/newmConexao/add.php",
+			url: "http://localhost/newmConexao/edit.php",
 			data: {
 				nome: state.name,
 				cpf: state.cpf,
@@ -133,11 +187,11 @@ export default class AddCustomer extends Component{
 				observacao: state.obs
 			},
             success: function(response){ // sucesso de retorno executar função
-            	alert("Cliente inserido com sucesso!");
-            	
+            	alert("Cliente atualizado com sucesso!");
+            	window.location.href="/";
             }
         });
-		this.setState({name: '', cpf: '', birthdate: '', phone: '', email: '', address: '', obs: ''});
+
 	}
 
 	render(){
@@ -146,12 +200,13 @@ export default class AddCustomer extends Component{
 			<div className="form">
 
 			<table border="2px">
+
 			<tr>
 			<td>
 			Nome: <input required className="required" pattern="[a-zA-Z]+" type="text" value={this.state.name} onChange={this.handleChangeName} />
 			</td>
 			<td>
-			CPF: <input required type="number" value={this.state.cpf} onChange={this.handleChangeCPF} />
+			CPF: <input required type="number" pattern=".{11,}" value={this.state.cpf} onChange={this.handleChangeCPF} />
 			</td>
 			</tr>
 
@@ -162,7 +217,7 @@ export default class AddCustomer extends Component{
 			</td>
 			<td>
 			Celular: 
-			<input required value={this.state.phone} onChange={this.handleChangePhone} className="phone" placeholder="(99) 9 99999999"/>
+			<InputMask required pattern=".{9, }.[0-9]+" alwaysShowMask value={this.state.phone} onChange={this.handleChangePhone} className="phone" mask="(99) 9 99999999" placeholder="(99) 9 99999999"/>
 
 			
 			</td>
@@ -186,7 +241,7 @@ export default class AddCustomer extends Component{
 			</table>
 
 			
-			<button onClick={this.handleSubmit}> Cadastrar </button>
+			<button onClick={this.handleSubmit}> Atualizar </button>
 
 			</div>
 			</div>
