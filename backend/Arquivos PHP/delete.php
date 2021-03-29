@@ -1,7 +1,7 @@
 <?php
 
 try {
-	include_once './conexao.php';
+	include_once './connection.php';
     // Create prepared statement
     $id = addslashes($_POST['id']);
 

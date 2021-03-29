@@ -1,7 +1,7 @@
 <?php 
 
 try {
-	include_once './conexao.php';
+	include_once './connection.php';
 
 	$sql = "INSERT INTO cliente (nome, cpf, nascimento, celular, email, endereco, observacao) VALUES (:nome, :cpf, :nascimento, :celular, :email, :endereco, :observacao)";
 	$stmt = $pdo->prepare($sql);

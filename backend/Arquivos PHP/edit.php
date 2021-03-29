@@ -1,6 +1,6 @@
 <?php
 
-include_once './conexao.php';
+include_once './connection.php';
 
 $id = addslashes($_POST['id']);
 $nome = addslashes($_POST['nome']);
