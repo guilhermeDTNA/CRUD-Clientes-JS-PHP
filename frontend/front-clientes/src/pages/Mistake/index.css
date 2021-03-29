@@ -1,0 +1,61 @@
+.title-mistake p{
+	text-align: center;
+}
+
+.image-mistake{
+	text-align: center;
+}
+
+@media screen and (min-width: 900px) {
+	/*Estiliza a página de URL não encontrada*/
+	.title-mistake{
+		font-weight: bold;
+		font-size: 40px;
+		color: red;
+		font-family: 'Akaya Kanadaka', cursive;
+	}
+	.image-mistake img{
+		height: 28rem;
+	}
+}
+
+/*Para dispositivos móveis orientação retrato*/
+@media screen and (max-width: 899px) and (orientation: portrait) {
+
+	.title-mistake{
+		font-weight: bold;
+		font-size: 40px;
+		color: red;
+		font-family: 'Akaya Kanadaka', cursive;
+	}
+
+	.title-mistake p{
+		text-align: center;
+		margin-top: 30%;
+
+	}
+
+	.image-mistake img{
+		height: 13rem;
+	}
+}
+
+
+/*Para dispositivos móveis orientação paisagem*/
+@media screen and (max-width: 899px) and (orientation: landscape) {
+
+	.title-mistake{
+		font-weight: bold;
+		font-size: 40px;
+		color: red;
+		font-family: 'Akaya Kanadaka', cursive;
+	}
+	
+	.title-mistake p{
+		text-align: center;
+	}
+
+	.image-mistake img{
+		height: 10rem;
+	}
+}

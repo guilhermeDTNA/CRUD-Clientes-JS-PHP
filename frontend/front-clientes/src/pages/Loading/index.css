@@ -1,0 +1,19 @@
+/*Todo o espaço ocupado pelo componente Loading*/
+.containerLoading{
+	width: 100%;
+	text-align: center;
+	justify-content: center;
+
+}
+
+.imgLoading{
+	height: 8rem;
+	left: 50%;
+	margin-top: 10%;
+}
+
+.textLoading{
+	font-size: 20px;
+	font-style: italic;
+	margin-top: 1rem;
+}

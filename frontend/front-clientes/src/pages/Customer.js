@@ -1,35 +1,16 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
-import ReactDOM from 'react-dom'
+import {Link} from 'react-router-dom';
 
 //Classe que exibe e envia requisições para o PHP
 export default class Customer extends Component{
 
   constructor(props){
     super(props);
-
-    this.deleteCustomer = this.deleteCustomer.bind(this);
+    
   }
 
-  deleteCustomer() {
-    console.log("olá")
-    /*
-    $.ajax({
-      type: "POST",
-      url: "http://localhost/newmConexao/delete.php",
-      data: {id: value},
-      complete: function(data){
-            // (...)
-          }
-        });
-        */
-      }
-
-      teste(){
-        console.log('oi');
-      }
-
-      render(){
+  render(){
 
     /*
     var body = this.props.rows.map((item, key) =>{
@@ -117,7 +98,7 @@ export default class Customer extends Component{
             <div className="cpf">
             {item[3]}
             </div>
-            <div className="birthday">
+            <div className="birthdate">
             {item[4]}
             </div>
             <div className="phone">
@@ -140,29 +121,32 @@ export default class Customer extends Component{
                   type: "POST",
                   url: "http://localhost/newmConexao/delete.php",
                   data: {id: item[1]},
+
                   success: function(response){ // sucesso de retorno executar função
-                     $("#root").append(response);
+                    alert("Cliente deletado com sucesso!");
+                    window.location.href="/";
                   }
                 });
-                
               }
             }>Deletar</button>
+
+            <Link to="/add"> <button>Adicionar</button> </Link>
             </div>
 
             </div>
             </div>
             )
-        })
-      }
+          })
+        }
 
 
 
-      </>
-      )
-          }
+        </>
+        )
+        }
 
-          else{
-            return (<><p>Nada encontrado!</p></>)
-          }
+        else{
+          return (<><p>Nada encontrado!</p></>)
         }
       }
+    }
