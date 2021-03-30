@@ -1,12 +1,16 @@
 import react, {Component} from 'react';
 import $ from 'jquery';
 
-import InputMask from 'react-input-mask';
+import '../AddCustomer/styles.css';
+import Loading from '../Loading';
 
+/*Classe semelhante à AddCustomer, suas únicas diferenças estão no retorno dos dados nos campos de 
+acordo com o cliente especificado e no tipo de requisição a ser feita ao backend */ 
 export default class EditCustomer extends Component{
 
 	constructor(props) {
 		super(props);
+		//O id acessa a props passada pelo Ajax em Customer.js
 		this.state = {
 			id: this.props.match.params.id,
 			name: '',
@@ -28,12 +32,13 @@ export default class EditCustomer extends Component{
 		this.handleChangeObs = this.handleChangeObs.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 
-		this.validadeCPF = this.validadeCPF.bind(this);
+		this.validateCPF = this.validateCPF.bind(this);
 
 		this.updateCustomer = this.updateCustomer.bind(this);
 		this.splitCustomer = this.splitCustomer.bind(this);
 	}
 
+	//Logo ao ser iniciado, o componente consultará e exibirá as informações relacionadas ao cliente 
 	componentDidMount(){
 		fetch('http://localhost/newmConexao/search.php?id='+this.state.id)
 		.then(res => res.json())
@@ -44,7 +49,7 @@ export default class EditCustomer extends Component{
 					customer: result
 				});
 			},
-
+			//Exibe 
 			(error) => {
 				this.setState({
 					isLoaded: true,
@@ -52,13 +57,14 @@ export default class EditCustomer extends Component{
 				});
 			},
 			)
+		//Chama a função splitCustomer para separar os dados recebidos
 		.then(
 			this.splitCustomer
 			)
 	}
 	
 	handleChangeName(event){
-		this.setState({name: event.target.value});
+		this.setState({name: event.target.value.replace(/([^\sA-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ])/g, '')});
 	}
 
 	handleChangeCPF(event){
@@ -70,22 +76,22 @@ export default class EditCustomer extends Component{
 	}
 
 	handleChangePhone(event){		
-		this.setState({phone: event.target.value});
+		this.setState({phone: event.target.value.replace(/([^0-9])/g, '')});
 	}
 
 	handleChangeEmail(event){
-		this.setState({email: event.target.value});
+		this.setState({email: event.target.value.replace(/([^A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.'@])/g, '')});
 	}
 
 	handleChangeAddress(event){
-		this.setState({address: event.target.value});
+		this.setState({address: event.target.value.replace(/([^\sA-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.'])/g, '')});
 	}
 
 	handleChangeObs(event){
-		this.setState({obs: event.target.value});
+		this.setState({obs: event.target.value.replace(/([^\sA-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.'])/g, '')});
 	}
 
-	validadeCPF(){
+	validateCPF(){
 
 		let cpf = this.state.cpf;
 
@@ -123,15 +129,15 @@ export default class EditCustomer extends Component{
 			
 		}
 
-	//Função que vai verificar se os campos estão preenchidos e chama o método que fará a inserção se estiverem
 	handleSubmit(event) {
 		let state = this.state;
 
-		//Antes de enviar para o servidor, verifica se algum campo está vazio ou se o CPF é inválido
 		if (state.name === '' || state.cpf === ''|| state.birthdate === ''|| state.phone === ''|| state.email === ''|| state.address=== '') {
 			alert("Um ou mais campos vazios");
-		} else if (!this.validadeCPF()){
+		} else if (!this.validateCPF()){
 			alert('CPF inválido!');
+		} else if(this.state.email.indexOf("@") === -1){
+			alert("E-mail inválido");
 		} else{
 			this.updateCustomer();
 		}
@@ -140,7 +146,7 @@ export default class EditCustomer extends Component{
 		event.preventDefault();
 	}
 
-	//Função que busca o cliente e exibe suas informações no form
+	//Função que divide o JSON cliente armazenado em customer e altera os states relacionados aos dados
 	splitCustomer(){
 		let state = this.state;
 		let customer = JSON.stringify(state.customer);
@@ -160,6 +166,7 @@ export default class EditCustomer extends Component{
 
 		customer = customer.split(',');
 
+		//As posições pares >2 se referem aos dados relacionados a nome, cpf, data de nascimento, ...
 		this.setState({
 			name: customer[4],
 			cpf: customer[6],
@@ -171,6 +178,7 @@ export default class EditCustomer extends Component{
 		});
 	}
 
+	//Método que enviar requisição ao servidor para atualizar o cliente
 	updateCustomer(){
 		let state = this.state;
 		$.ajax({
@@ -187,8 +195,8 @@ export default class EditCustomer extends Component{
 				observacao: this.state.obs
 			},
             success: function(response){ // sucesso de retorno executar função
-            	
             	alert("Cliente atualizado com sucesso!");
+            	//Leva à página inicial
             	window.location.href="/";
             }
         });
@@ -196,56 +204,75 @@ export default class EditCustomer extends Component{
 	}
 
 	render(){
-		return(
-			<div className="addPage">
-			<div className="form">
 
-			<table border="2px">
+		let state = this.state;
 
-			<tr>
-			<td>
-			Nome: <input required className="required" pattern="[a-zA-Z]+" type="text" value={this.state.name} onChange={this.handleChangeName} />
-			</td>
-			<td>
-			CPF: <input required type="number" pattern=".{11,}" value={this.state.cpf} onChange={this.handleChangeCPF} />
-			</td>
-			</tr>
+    //Exibe o erro (se houver) ao carregar o componente
+    if (state.error) {
+    	return <div>Erro: {state.error.message}</div>;
+    } //Exibe o componente de Loading enquanto o conteúdo não é totalmente carregado 
+    else if (!state.isLoaded) {
+    	return <div> <p>{Loading}</p></div>;
+    } else {
 
-			<tr>
-			<td>
+    	return(
+    		<div className="addPage">
+    		<p className="namePage">Editar cliente:</p>
+    		<div className="form">
 
-			Data de nascimento: <input required type="date" value={this.state.birthdate} onChange={this.handleChangeBirthdate} className="birthdate" />
-			</td>
-			<td>
-			Celular: 
-			<input required pattern=".{9, }.[0-9]+" value={this.state.phone} onChange={this.handleChangePhone} className="phone" placeholder="(99) 9 99999999"/>
+    		<div className="row">
 
-			
-			</td>
-			</tr>
+    		<div>
+    		<label>Nome:</label> <input required type="text" value={this.state.name} onChange={this.handleChangeName} />
+    		</div>
 
-			<tr>
-			<td>
-			E-mail: <input required type="email" value={this.state.email} onChange={this.handleChangeEmail} />
-			</td>
-			<td>
-			Endereço: <input required type="text" value={this.state.address} onChange={this.handleChangeAddress} />
-			</td>
-			</tr>
+    		<div>
+    		<label>CPF:</label> <input required type="number" value={this.state.cpf} onChange={this.handleChangeCPF} />
+    		</div>
 
-			<tr>
-			<td colSpan="2">
-			Observação: <textarea maxLength="300" value={this.state.obs} onChange={this.handleChangeObs} />
-			</td>
+    		</div>
 
-			</tr>
-			</table>
+    		<div className="row">
 
-			
-			<button onClick={this.handleSubmit}> Atualizar </button>
+    		<div>
+    		<label>Data de nascimento:</label> <input required type="date" value={this.state.birthdate} onChange={this.handleChangeBirthdate} className="birthdate" />
+    		</div>
 
-			</div>
-			</div>
-			)
+    		<div>
+    		<label>Celular:</label> <input required value={this.state.phone} onChange={this.handleChangePhone} className="phone" placeholder="(99) 9 99999999"/>
+    		</div>
+
+    		</div>
+
+    		<div className="row">
+
+    		<div>
+    		<label>E-mail: </label><input required type="email" value={this.state.email} onChange={this.handleChangeEmail} />
+    		</div>
+
+    		<div>
+    		<label>Endereço: </label><input required type="text" value={this.state.address} onChange={this.handleChangeAddress} />
+    		</div>
+
+    		</div>
+
+    		<div className="row">
+    		<div>
+    		<label>Observação:</label> <textarea maxLength="300" value={this.state.obs} onChange={this.handleChangeObs} />
+    		</div>
+
+    		</div>
+
+    		</div>
+
+    		<p className="button">
+    		<button onClick={() => window.location.href="/"}> Cancelar </button>
+    		<button onClick={this.handleSubmit}> Atualizar </button>
+
+    		</p>
+
+    		</div>
+    		)
+    	}
 	}
 }

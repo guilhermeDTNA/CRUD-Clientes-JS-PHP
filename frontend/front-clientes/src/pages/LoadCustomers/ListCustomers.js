@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 
 import Customer from './Customer';
-import Loading from './Loading';
+import Loading from '../Loading';
 
+//Componente que envia requisição para o servidor e envia as informações sobre os cliente para Customer.js
 export default class ListCustomers extends Component {
 
   constructor(props){
@@ -21,6 +22,7 @@ export default class ListCustomers extends Component {
 
     fetch('http://localhost/newmConexao/list.php')
     .then(res => res.json())
+    //Vai armazenar todos os clientes em result
     .then(
       (result) => {
         this.setState({
@@ -36,6 +38,7 @@ export default class ListCustomers extends Component {
         });
       },
       )
+    //showCustomers é executada logo ao carregar o componente
     .then(this.showCustomers)
   }
 
@@ -45,11 +48,13 @@ export default class ListCustomers extends Component {
     //Armazena cada linha
     var row = '{';
 
-
     let state = this.state;
 
-    for (var i=0; i<this.state.customers.length; i++){
-      for(var j=0; j<this.state.customers[i].length; j++){
+    //Se existir algum cliente, será percorrido todo o state customers e inseridos no array rows
+    //As chaves são inseridas para serem reconhecidos como objeto JSON
+    if(state.customers !== null){
+      for (var i=0; i<this.state.customers.length; i++){
+        for(var j=0; j<this.state.customers[i].length; j++){
 
         //Se ainda não chegou no último elemento da linha
         if (j!==this.state.customers[i].length-1){
@@ -60,24 +65,19 @@ export default class ListCustomers extends Component {
           //Limpa a linha a cada mudança de linha
           row = '{';
         }
-
-      }
+      }        
     }
-    
-
-    //Calcula número de linhas da tabela
-    //var rows = 0;
-    
-    state.rows = rows;
-    //state.data = data;
-
-    this.setState(state);
   }
 
+  state.rows = rows;
 
-  render(){
+  this.setState(state);
+}
 
-    let state = this.state;
+
+render(){
+
+  let state = this.state;
 
     //Exibe o erro (se houver) ao carregar o componente
     if (state.error) {
@@ -87,13 +87,12 @@ export default class ListCustomers extends Component {
     } else {
 
       return (
-        <div>
+      <div>
+      
+      <Customer rows={this.state.rows} />
 
-
-        <Customer rows={this.state.rows} />
-
-        </div>
-        );
+      </div>
+      );
     }
   }
 }

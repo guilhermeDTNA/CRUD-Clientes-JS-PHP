@@ -1,12 +1,11 @@
 import react, {Component} from 'react';
 import $ from 'jquery';
 
-import InputMask from 'react-input-mask';
-
 import './styles.css';
 
 export default class AddCustomer extends Component{
 
+	//Define os estados
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,6 +18,7 @@ export default class AddCustomer extends Component{
 			obs: ''
 		};
 
+		//Dá permissão às funções de acessarem os estados
 		this.handleChangeName = this.handleChangeName.bind(this);
 		this.handleChangeCPF = this.handleChangeCPF.bind(this);
 		this.handleChangeBirthdate = this.handleChangeBirthdate.bind(this);
@@ -28,15 +28,15 @@ export default class AddCustomer extends Component{
 		this.handleChangeObs = this.handleChangeObs.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 
-		this.validadeCPF = this.validadeCPF.bind(this);
+		this.validateCPF = this.validateCPF.bind(this);
 
 		this.add = this.add.bind(this);
 	}
 
+	//Todos os handle recebem valor do campo e alteram o estate respectivo
 	handleChangeName(event){
-		let state = this.state;
-		state.name = event.target.value;
-		this.setState(state);
+		//O replace vai permitir somente letras para nome
+		this.setState({name: event.target.value.replace(/([^\sA-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ])/g, '')});
 	}
 
 	handleChangeCPF(event){
@@ -48,22 +48,25 @@ export default class AddCustomer extends Component{
 	}
 
 	handleChangePhone(event){		
-		this.setState({phone: event.target.value});
+		//Aceitará só números
+		this.setState({phone: event.target.value.replace(/([^0-9])/g, '')});
 	}
 
 	handleChangeEmail(event){
-		this.setState({email: event.target.value});
+		//Aceitará números, letras, e @
+		this.setState({email: event.target.value.replace(/([^A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.'@])/g, '')});
 	}
 
 	handleChangeAddress(event){
-		this.setState({address: event.target.value});
+		this.setState({address: event.target.value.replace(/([^\sA-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.'])/g, '')});
 	}
 
 	handleChangeObs(event){
-		this.setState({obs: event.target.value});
+		this.setState({obs: event.target.value.replace(/([^\sA-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.'])/g, '')});
 	}
 
-	validadeCPF(){
+	//Função extraída da internet que verifica se um CPF é válido
+	validateCPF(){
 
 		let cpf = this.state.cpf;
 
@@ -94,30 +97,34 @@ export default class AddCustomer extends Component{
 				result = sum % 11 < 2 ? 0 : 11 - sum % 11;
 				if (result != digits.charAt(1))
 					return false; //Inválido
-					return true;
-				}
-				else
+				return true;
+			}
+			else
 				return false; //Inválido
 			
 		}
 
-	//Função que vai verificar se os campos estão preenchidos e chama o método que fará a inserção se estiverem
+	//Função que vai verificar se os campos estão preenchidos e se o CPF e e-mail são válidos e chama o método que fará a inserção se estiverem
 	handleSubmit(event) {
 		let state = this.state;
 
 		//Antes de enviar para o servidor, verifica se algum campo está vazio ou se o CPF é inválido
 		if (state.name === '' || state.cpf === ''|| state.birthdate === ''|| state.phone === ''|| state.email === ''|| state.address=== '') {
 			alert("Um ou mais campos vazios");
-		} else if (!this.validadeCPF()){
-			alert('CPF inválido!');
+		} else if (!this.validateCPF()){
+			alert("CPF inválido!");
+			//E-mail só é validade se tiver o @
+		} else if(this.state.email.indexOf("@") === -1){
+			alert("E-mail inválido");
 		} else{
 			this.add();
 		}
 
-		
+		//Não recarrega a página
 		event.preventDefault();
 	}
 
+	//Método que faz a requisição ao arquivo PHP enviando os dados via AJAX
 	add(){
 		let state = this.state;
 		$.ajax({
@@ -134,61 +141,70 @@ export default class AddCustomer extends Component{
 			},
             success: function(response){ // sucesso de retorno executar função
             	alert("Cliente inserido com sucesso!");
-            	
             }
         });
+        //Limpa todos os campos ao enviar
 		this.setState({name: '', cpf: '', birthdate: '', phone: '', email: '', address: '', obs: ''});
 	}
 
+	//Renderizará as informações para o cliente em HTML
 	render(){
 		return(
 			<div className="addPage">
+
+			<p className="namePage">Adicionar cliente:</p>
 			<div className="form">
 
-			<table border="2px">
-			<tr>
-			<td>
-			Nome: <input required className="required" pattern="[a-zA-Z]+" type="text" value={this.state.name} onChange={this.handleChangeName} />
-			</td>
-			<td>
-			CPF: <input required type="number" value={this.state.cpf} onChange={this.handleChangeCPF} />
-			</td>
-			</tr>
+			<div className="row">
 
-			<tr>
-			<td>
-
-			Data de nascimento: <input required type="date" value={this.state.birthdate} onChange={this.handleChangeBirthdate} className="birthdate" />
-			</td>
-			<td>
-			Celular: 
-			<input required value={this.state.phone} onChange={this.handleChangePhone} className="phone" placeholder="(99) 9 99999999"/>
-
+			<div>
+			<label>Nome:</label> <input required type="text" value={this.state.name} onChange={this.handleChangeName} />
+			</div>
 			
-			</td>
-			</tr>
-
-			<tr>
-			<td>
-			E-mail: <input required type="email" value={this.state.email} onChange={this.handleChangeEmail} />
-			</td>
-			<td>
-			Endereço: <input required type="text" value={this.state.address} onChange={this.handleChangeAddress} />
-			</td>
-			</tr>
-
-			<tr>
-			<td colSpan="2">
-			Observação: <textarea maxLength="300" value={this.state.obs} onChange={this.handleChangeObs} />
-			</td>
-
-			</tr>
-			</table>
-
-			
-			<button onClick={this.handleSubmit}> Cadastrar </button>
+			<div>
+			<label>CPF:</label> <input required type="number" value={this.state.cpf} onChange={this.handleChangeCPF} />
+			</div>
 
 			</div>
+			
+			<div className="row">
+
+			<div>
+			<label>Data de nascimento:</label> <input required type="date" value={this.state.birthdate} onChange={this.handleChangeBirthdate} className="birthdate" />
+			</div>
+
+			<div>
+			<label>Celular:</label> <input required value={this.state.phone} onChange={this.handleChangePhone} className="phone" placeholder="(99) 9 99999999"/>
+			</div>
+
+			</div>
+			
+			<div className="row">
+
+			<div>
+			<label>E-mail: </label><input required type="email" value={this.state.email} onChange={this.handleChangeEmail} />
+			</div>
+
+			<div>
+			<label>Endereço: </label><input required type="text" value={this.state.address} onChange={this.handleChangeAddress} />
+			</div>
+
+			</div>
+
+			<div className="row">
+			<div>
+			<label>Observação:</label> <textarea maxLength="300" value={this.state.obs} onChange={this.handleChangeObs} />
+			</div>
+
+			</div>
+
+			</div>
+
+			<p className="button">
+			<button onClick={() => window.location.href="/"}> Cancelar </button>
+
+			<button onClick={this.handleSubmit}> Cadastrar </button>
+			</p>
 			</div>
 			)
 	}

@@ -1,4 +1,87 @@
-#required:after {
-  content:" *"; 
-  color: red;
+.namePage{
+	text-align: center;
+
+	font-weight: bold;
+	font-size: 20px;
+
+	margin-bottom: 2rem;
+	margin-top: 1rem;
+}
+
+.form{
+	display: flex;
+	flex-direction: column;
+
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.row{
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+
+}
+
+.row div{
+	flex: 1;
+
+	margin: 5px;
+
+	width: 98%;
+}
+
+.row input{
+	height: 22px;
+
+	min-width: 98%;
+	max-width: 98%;
+}
+
+.row textarea{
+	height: 50px;
+
+	width: 99%;
+}
+
+.row label{
+	margin-right: 70%;
+}
+
+.button{
+	text-align: center;
+}
+
+.button button{
+	height: 3rem;
+	width: 8rem;
+
+	font-size: 1rem;
+	font-color: black;
+	font-weight: bold;
+	
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+
+	border-radius: 15px;
+	border-width: 3px;
+
+	/*Tempo para efetuar a transição hover*/
+	transition: filter 0.2s;
+}
+
+/*O nth-child pega o primeiro e segundo botões dentro da class button*/
+.button > button:nth-child(1){
+	background-color: #EB9989;
+
+	margin-right: 3rem;
+}
+
+.button > button:nth-child(2){
+	background-color: #AADB9B;
+}
+
+/*Aplica efeito de transição ao passar o mouse*/
+.addPage button:hover{
+	filter: brightness(0.8);
 }

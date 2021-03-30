@@ -7,13 +7,13 @@ import './index.css';
 export default function PageHeader(){
 	return(
 
-			<div className="headerContainer">
-				<p>
-				<Link to="/"><button>Página Inicial</button></Link>
-				
-				<Link to="/cadastrar"> <button>Adicionar</button> </Link>
-				</p>
-			</div>
+		<div className="headerContainer">
+		
+		<Link to="/"><button className="buttonHeader buttonHeaderInicial">Página Inicial</button></Link>
+		
+		<Link to="/cadastrar"> <button className="buttonHeader buttonHeaderAdd">Adicionar</button> </Link>
+		
+		</div>
 
 
 		);

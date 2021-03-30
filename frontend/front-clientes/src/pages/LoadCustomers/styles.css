@@ -1,0 +1,67 @@
+/*Estiliza a página de exibição dos clientes*/
+.nameFields{
+	text-align: center;
+
+	font-weight: bold;
+	font-size: 20px;
+
+	margin-bottom: 2rem;
+	margin-top: 1rem;
+}
+
+.fields{
+	display: flex;
+	flex-direction: row;
+
+	text-align: center;
+	justify-content: center;
+
+	font-weight: bold;
+	font-size: 19px;
+
+	left: 50%;
+	width: 100%;
+}
+
+.field{
+	flex: 1;
+
+	border: 2px solid;
+	border-color: #9DACF5;
+
+	height: 50px;
+}
+
+.customersList{
+	display: flex;
+	flex-direction: row;
+
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+}
+
+.customersList div{
+	flex: 1;
+
+	border: 2px solid;
+	border-color: #9DACF5;
+
+	background-color: #E1ECF4;
+
+	min-height: 40px;
+	height: auto;
+
+	transition: filter 0.2s;
+}
+
+.customersList:hover{
+	filter: brightness(0.8);
+}
+
+.customersList button{
+	margin-top: 5px;
+
+	width: 65px;
+	height: 30px;
+}

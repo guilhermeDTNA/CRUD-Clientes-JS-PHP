@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 //Importa todos os componentes que serão exibidos
-import ListCustomers from './pages/ListCustomers';
-import Customer from './pages/Customer';
+import ListCustomers from './pages/LoadCustomers/ListCustomers';
+import Customer from './pages/LoadCustomers/Customer';
 import AddCustomer from './pages/AddCustomer/';
 import EditCustomer from './pages/EditCustomer/';
 
+//Componentes não obrigatórios (cabeçalho e página 404)
 import PageHeader from './PageHeader/';
 import Mistake from './pages/Mistake';
 
@@ -27,12 +28,10 @@ export default class Routes extends Component {
 			<Route exact path="/cadastrar" component={AddCustomer} />
 			<Route exact path="/editar/:id" component={EditCustomer} />
 
-
 			<Route path="*" component = {Mistake} />
 			</Switch>
 
 			</BrowserRouter>
 		);
 	}
-
 }
