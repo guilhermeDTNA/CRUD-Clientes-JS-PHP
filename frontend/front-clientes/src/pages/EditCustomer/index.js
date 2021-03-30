@@ -54,7 +54,7 @@ export default class EditCustomer extends Component{
 			)
 		.then(
 			this.splitCustomer
-		)
+			)
 	}
 	
 	handleChangeName(event){
@@ -147,29 +147,28 @@ export default class EditCustomer extends Component{
 		
 		customer = customer.replace(/['"]+/g, '')
 		customer = customer.split('{')+'';
-        customer = customer.split('}')+'';
+		customer = customer.split('}')+'';
 
-        customer = customer.split('id:')+'';
-        customer = customer.split('name:')+'';
-        customer = customer.split('cpf:')+'';
-        customer = customer.split('birthdate:')+'';
-        customer = customer.split('phone:')+'';
-        customer = customer.split('email:')+'';
-        customer = customer.split('address:')+'';
-        customer = customer.split('obs:')+'';
+		customer = customer.split('id:')+'';
+		customer = customer.split('name:')+'';
+		customer = customer.split('cpf:')+'';
+		customer = customer.split('birthdate:')+'';
+		customer = customer.split('phone:')+'';
+		customer = customer.split('email:')+'';
+		customer = customer.split('address:')+'';
+		customer = customer.split('obs:')+'';
 
-        customer = customer.split(',');
+		customer = customer.split(',');
 
-        this.setState({
-        	name: customer[4],
-        	cpf: customer[6],
-        	birthdate: customer[8],
-        	phone: customer[10],
-        	email: customer[12],
-        	address: customer[14],
-        	
-        });
-        console.log(customer[16]);
+		this.setState({
+			name: customer[4],
+			cpf: customer[6],
+			birthdate: customer[8],
+			phone: customer[10],
+			email: customer[12],
+			address: customer[14],
+			obs: customer[16]
+		});
 	}
 
 	updateCustomer(){
@@ -178,15 +177,17 @@ export default class EditCustomer extends Component{
 			type: "POST",
 			url: "http://localhost/newmConexao/edit.php",
 			data: {
-				nome: state.name,
-				cpf: state.cpf,
-				nascimento: state.birthdate,
-				celular: state.phone,
-				email: state.email,
-				endereco: state.address,
-				observacao: state.obs
+				id: this.state.id,
+				nome: this.state.name,
+				cpf: this.state.cpf,
+				nascimento: this.state.birthdate,
+				celular: this.state.phone,
+				email: this.state.email,
+				endereco: this.state.address,
+				observacao: this.state.obs
 			},
             success: function(response){ // sucesso de retorno executar função
+            	
             	alert("Cliente atualizado com sucesso!");
             	window.location.href="/";
             }
@@ -217,7 +218,7 @@ export default class EditCustomer extends Component{
 			</td>
 			<td>
 			Celular: 
-			<InputMask required pattern=".{9, }.[0-9]+" alwaysShowMask value={this.state.phone} onChange={this.handleChangePhone} className="phone" mask="(99) 9 99999999" placeholder="(99) 9 99999999"/>
+			<input required pattern=".{9, }.[0-9]+" value={this.state.phone} onChange={this.handleChangePhone} className="phone" placeholder="(99) 9 99999999"/>
 
 			
 			</td>

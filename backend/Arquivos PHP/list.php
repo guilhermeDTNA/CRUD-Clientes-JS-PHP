@@ -2,6 +2,7 @@
 
 include_once './connection.php';
 
+
 try{
 
     $stmt = $pdo->prepare("SELECT * FROM cliente");

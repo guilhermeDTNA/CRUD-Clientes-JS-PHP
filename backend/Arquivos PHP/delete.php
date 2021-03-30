@@ -1,7 +1,9 @@
 <?php
 
+include_once './connection.php';
+
 try {
-	include_once './connection.php';
+	
     // Create prepared statement
     $id = addslashes($_POST['id']);
 
@@ -11,7 +13,7 @@ try {
 
     $stmt->execute();
 
-    $retorno="Excluído com sucesso!";
+    $return="Excluído com sucesso!";
 
 } catch (PDOException $e) {
 
@@ -21,6 +23,6 @@ try {
 // Close connection
 unset($pdo);
 
-return $retorno;
+return $return;
 
 ?>

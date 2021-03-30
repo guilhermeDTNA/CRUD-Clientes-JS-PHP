@@ -18,12 +18,12 @@ try {
 // Execute the prepared statement
 	$stmt->execute();
 
-	$retorno="Inserido com sucesso!";
+	$return="Inserido com sucesso!";
 } catch (PDOException $e) {
-	die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+	die("ERROR: Não pôde ser executado $sql. " . $e->getMessage());
 }	
 
 unset($pdo);
 
-return $retorno;
+return $return;
 ?>
