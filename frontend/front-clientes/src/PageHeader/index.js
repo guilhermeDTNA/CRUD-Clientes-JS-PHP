@@ -8,7 +8,11 @@ export default function PageHeader(){
 	return(
 
 			<div className="headerContainer">
-				<p><Link to="/"><button>Página Inicial</button></Link></p>
+				<p>
+				<Link to="/"><button>Página Inicial</button></Link>
+				
+				<Link to="/cadastrar"> <button>Adicionar</button> </Link>
+				</p>
 			</div>
 
 
