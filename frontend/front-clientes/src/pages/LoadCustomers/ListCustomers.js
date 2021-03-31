@@ -20,7 +20,7 @@ export default class ListCustomers extends Component {
 
   componentDidMount(){
 
-    fetch('http://localhost/newmConexao/list.php')
+    fetch('http://localhost/requests/list.php')
     .then(res => res.json())
     //Vai armazenar todos os clientes em result
     .then(

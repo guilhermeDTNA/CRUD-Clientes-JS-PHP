@@ -1,10 +1,11 @@
 <?php
 
+//Arquivo que deleta cliente de acordo com o id passado
+
 include_once './connection.php';
 
 try {
 	
-    // Create prepared statement
     $id = addslashes($_POST['id']);
 
     $sql = "DELETE FROM cliente WHERE id = $id";
@@ -16,8 +17,7 @@ try {
     $return="Excluído com sucesso!";
 
 } catch (PDOException $e) {
-
-    die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+    die("ERRO: Não pôde ser executado $sql. " . $e->getMessage());
 }
 
 // Close connection

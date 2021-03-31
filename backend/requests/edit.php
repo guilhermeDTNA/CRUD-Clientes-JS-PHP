@@ -1,5 +1,7 @@
 <?php
 
+//Arquivo que realiza alteração nos cados do cliente cujo ID foi passado via POST
+
 include_once './connection.php';
 
 $id = addslashes($_POST['id']);
@@ -11,12 +13,14 @@ $email = addslashes($_POST['email']);
 $address = addslashes($_POST['endereco']);
 $obs = addslashes($_POST['observacao']);
 
+//Verifica se há algum campo obrigatório nulo
 if ($id==''||$name==''||$cpf==''||$birthday==''||$phone==''||$email==''||$address=='') {
 	echo "Dados nulos";
 }
 
 
 try {
+	//Dependendo do valor da observação, a consulta SQL vai mudar
 	if ($obs == ''){
 	$sql = "UPDATE cliente SET nome = '$name', cpf = '$cpf', nascimento = '$birthday', celular = '$phone', email = '$email', endereco = '$address' WHERE id = $id";
 	} else {
@@ -37,10 +41,10 @@ try {
 	$return="Alterado com sucesso!";
 
 } catch (Exception $e) {
-	die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+	die("ERRO: Não pôde ser executado $sql. " . $e->getMessage());
 }
 
-// Close connection
+//Fecha a conexão
 unset($pdo);
 
 return $return;

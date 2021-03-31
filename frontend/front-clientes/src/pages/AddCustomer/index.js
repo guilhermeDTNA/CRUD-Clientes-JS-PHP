@@ -129,7 +129,7 @@ export default class AddCustomer extends Component{
 		let state = this.state;
 		$.ajax({
 			type: "POST",
-			url: "http://localhost/newmConexao/add.php",
+			url: "http://localhost/requests/add.php",
 			data: {
 				nome: state.name,
 				cpf: state.cpf,

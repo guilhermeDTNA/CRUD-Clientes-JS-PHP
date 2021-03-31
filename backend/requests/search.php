@@ -1,10 +1,11 @@
 <?php
 
+//Arquivo que realiza a busca por um cliente e retorna seus dados
+
 include_once './connection.php';
 
-
 try{
-
+    //O valor é passado pela URL via GET
     $id = addslashes($_GET['id']);
 
     $sql = "SELECT * FROM cliente WHERE id = $id";
@@ -15,9 +16,10 @@ try{
     $arrValues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $query = $pdo->query($sql);
-// O segredo esta nesta linha abaixo \/
+    //O return vai retornar os valores encontrados para cada campo
     $return = $query->fetch();
 
+    //Cria o array customer com os dados encontrados
     $customer = [
         "id" => $return['id'],
         "name" => $return['nome'],
@@ -29,13 +31,13 @@ try{
         "obs" => $return['observacao']
     ]; 
 
-
+    //Retorna via JSON
     header('Content-Type: application/json');
     echo json_encode($customer);
 
 
 } catch(PDOException $e){
-  die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+  die("ERRO: Não pôde ser executado $sql. " . $e->getMessage());
 }
 
 unset($pdo);

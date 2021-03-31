@@ -40,7 +40,7 @@ export default class EditCustomer extends Component{
 
 	//Logo ao ser iniciado, o componente consultará e exibirá as informações relacionadas ao cliente 
 	componentDidMount(){
-		fetch('http://localhost/newmConexao/search.php?id='+this.state.id)
+		fetch('http://localhost/requests/search.php?id='+this.state.id)
 		.then(res => res.json())
 		.then(
 			(result) => {
