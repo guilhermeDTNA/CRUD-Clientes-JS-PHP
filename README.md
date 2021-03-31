@@ -1,3 +1,5 @@
+<b>Autor:</b> Guilherme Rocha Leite, <b>E-mail:</b> gleite98@gmail.com, <b>Website:</b> <a href="https://www.guilhermerocha.tk">https://www.guilhermerocha.tk</a>.
+
 Sistema para realizar CRUD de clientes no MySQL, tendo o PHP manipulando somente o backend com PDO e o JavaScript, com React, manipulando somente o frontend.
 
 Entre as características principais, estão:
