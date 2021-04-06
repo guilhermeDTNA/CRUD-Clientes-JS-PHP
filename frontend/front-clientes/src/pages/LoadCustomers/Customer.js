@@ -94,7 +94,7 @@ export default class Customer extends Component{
             () => {
               $.ajax({
                 type: "POST",
-                url: "http://localhost/newmConexao/delete.php",
+                url: "http://localhost/requests/delete.php",
                 data: {id: item[1]},
 
                 success: function(response){ // sucesso de retorno executar função

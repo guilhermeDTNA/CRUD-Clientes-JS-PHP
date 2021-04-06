@@ -183,7 +183,7 @@ export default class EditCustomer extends Component{
 		let state = this.state;
 		$.ajax({
 			type: "POST",
-			url: "http://localhost/newmConexao/edit.php",
+			url: "http://localhost/requests/edit.php",
 			data: {
 				id: this.state.id,
 				nome: this.state.name,
