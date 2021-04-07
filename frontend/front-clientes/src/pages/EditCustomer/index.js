@@ -90,6 +90,7 @@ export default class EditCustomer extends Component{
 	handleChangeObs(event){
 		this.setState({obs: event.target.value.replace(/([^\sA-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.'])/g, '')});
 	}
+	
 
 	validateCPF(){
 
@@ -129,22 +130,22 @@ export default class EditCustomer extends Component{
 			
 		}
 
-	handleSubmit(event) {
-		let state = this.state;
+		handleSubmit(event) {
+			let state = this.state;
 
-		if (state.name === '' || state.cpf === ''|| state.birthdate === ''|| state.phone === ''|| state.email === ''|| state.address=== '') {
-			alert("Um ou mais campos vazios");
-		} else if (!this.validateCPF()){
-			alert('CPF inválido!');
-		} else if(this.state.email.indexOf("@") === -1){
-			alert("E-mail inválido");
-		} else{
-			this.updateCustomer();
+			if (state.name === '' || state.cpf === ''|| state.birthdate === ''|| state.phone === ''|| state.email === ''|| state.address=== '') {
+				alert("Um ou mais campos vazios");
+			} else if (!this.validateCPF()){
+				alert('CPF inválido!');
+			} else if(this.state.email.indexOf("@") === -1){
+				alert("E-mail inválido");
+			} else{
+				this.updateCustomer();
+			}
+
+
+			event.preventDefault();
 		}
-
-		
-		event.preventDefault();
-	}
 
 	//Função que divide o JSON cliente armazenado em customer e altera os states relacionados aos dados
 	splitCustomer(){
@@ -167,6 +168,7 @@ export default class EditCustomer extends Component{
 		customer = customer.split(',');
 
 		//As posições pares >2 se referem aos dados relacionados a nome, cpf, data de nascimento, ...
+		if(customer[16] !== 'null'){ 
 		this.setState({
 			name: customer[4],
 			cpf: customer[6],
@@ -177,10 +179,21 @@ export default class EditCustomer extends Component{
 			obs: customer[16]
 		});
 	}
+		else { //Se observação retornar null do back, então substitui null por ''
+			this.setState({
+			name: customer[4],
+			cpf: customer[6],
+			birthdate: customer[8],
+			phone: customer[10],
+			email: customer[12],
+			address: customer[14],
+			obs: ''
+		});
+		}
+	}
 
 	//Método que enviar requisição ao servidor para atualizar o cliente
 	updateCustomer(){
-		let state = this.state;
 		$.ajax({
 			type: "POST",
 			url: "http://localhost/requests/edit.php",
@@ -200,7 +213,6 @@ export default class EditCustomer extends Component{
             	window.location.href="/";
             }
         });
-
 	}
 
 	render(){
@@ -274,5 +286,5 @@ export default class EditCustomer extends Component{
     		</div>
     		)
     	}
-	}
+    }
 }

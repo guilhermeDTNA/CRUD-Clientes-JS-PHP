@@ -13,18 +13,19 @@ $email = addslashes($_POST['email']);
 $address = addslashes($_POST['endereco']);
 $obs = addslashes($_POST['observacao']);
 
+
 //Verifica se há algum campo obrigatório nulo
 if ($id==''||$name==''||$cpf==''||$birthday==''||$phone==''||$email==''||$address=='') {
-	echo "Dados nulos";
+	return "Dados nulos";
 }
 
 
 try {
 	//Dependendo do valor da observação, a consulta SQL vai mudar
-	if ($obs == ''){
-	$sql = "UPDATE cliente SET nome = '$name', cpf = '$cpf', nascimento = '$birthday', celular = '$phone', email = '$email', endereco = '$address' WHERE id = $id";
+	if ($obs != ''){
+	$sql = "UPDATE cliente SET nome = '$name', cpf = '$cpf', nascimento = '$birthday', celular = '$phone', email = '$email', endereco = '$address', observacao = '$obs' WHERE id = $id";
 	} else {
-		$sql = "UPDATE cliente SET nome = '$name', cpf = '$cpf', nascimento = '$birthday', celular = '$phone', email = '$email', endereco = '$address', observacao = '$obs' WHERE id = $id";
+		$sql = "UPDATE cliente SET nome = '$name', cpf = '$cpf', nascimento = '$birthday', celular = '$phone', email = '$email', endereco = '$address', observacao = null WHERE id = $id";
 	}
 
 	$stmt = $pdo->prepare($sql);

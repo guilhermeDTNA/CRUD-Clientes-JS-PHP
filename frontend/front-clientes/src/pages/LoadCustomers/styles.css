@@ -9,6 +9,20 @@
 	margin-top: 1rem;
 }
 
+.fieldSearch{
+	text-align: right;
+	margin-right: 10px;
+}
+
+.fieldSearch input{
+	width: 20rem;
+	height: 1.5rem;
+}
+
+.fieldSearch button{
+	height: 1.9rem;
+}
+
 .fields{
 	display: flex;
 	flex-direction: row;
