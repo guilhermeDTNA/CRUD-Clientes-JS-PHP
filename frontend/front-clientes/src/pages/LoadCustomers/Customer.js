@@ -64,7 +64,7 @@ export default class Customer extends Component{
 
     //Se existir algum cliente, será percorrido todo o state customers e inseridos no array rows
     //As chaves são inseridas para serem reconhecidos como objeto JSON
-    if(state.customers !== null){
+    if(state.customers !== -1){
       if(state.customers.length>1){
         for (var i=0; i<this.state.customers.length; i++){
           for(var j=0; j<this.state.customers[i].length; j++){
@@ -95,14 +95,16 @@ export default class Customer extends Component{
 
     
   }
+  this.setState(state);
 }
 
-this.setState(state);
+
 }
 
 render(){
     //Rece o número de clientes encontrados do componente ListCustomers
     let rows = [];
+    let customers = this.state.customers;
     let isSearched = this.state.isSearched;
 
     /*Caso o visitante tenha pressionado o botão de pesquisar, o rows vai pegar os dados encontrados pela pesquisa
@@ -112,7 +114,7 @@ render(){
     } else rows = this.state.rows; 
 
     //Se for object, significa que existem mais de 1 registro
-    if(rows.length > 0 && typeof(rows)==='object'){
+    if(customers !== -1 && typeof(rows)==='object'){
       //Se houver algum cliente as informaçõa a seguir serão exibidas
       return(
         <>
@@ -258,7 +260,7 @@ render(){
     } 
     //Caso não encontre cliente algum
     else{
-      return (<><p>Nada encontrado!</p></>)
+      return (<><p align="center">Nada encontrado!</p></>)
     }
   }
 }

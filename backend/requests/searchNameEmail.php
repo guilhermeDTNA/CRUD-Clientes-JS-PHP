@@ -15,7 +15,7 @@ try{
 	$stmt->execute();
 	$arrValues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-	if(sizeof($arrValues)>1){
+	if(sizeof($arrValues)>=2){
 		for ($i=0; $i<sizeof($arrValues); $i++){
         //A key diz respeito à coluna (campo) e é concatenada com : e seu valor
 			foreach ($arrValues[$i] as $key => $useless) {
@@ -27,7 +27,7 @@ try{
 		//Retorna os valores em JSON
 		header('Content-Type: application/json');
 		echo json_encode($customers);
-	} else{
+	} else if(sizeof($arrValues)==1){
 		$query = $pdo->query($sql);
     //O return vai retornar os valores encontrados para cada campo
 		$return = $query->fetch();
@@ -48,7 +48,10 @@ try{
 		echo json_encode($customer);
 
 	}
-
+	else{
+		echo -1;
+	}
+	
 
 } catch(PDOException $e){
 	die("ERRO: Não pôde ser executado $sql. " . $e->getMessage());
