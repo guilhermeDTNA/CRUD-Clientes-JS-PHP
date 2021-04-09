@@ -1,87 +1,291 @@
-.namePage{
-	text-align: center;
 
-	font-weight: bold;
-	font-size: 20px;
 
-	margin-bottom: 2rem;
-	margin-top: 1rem;
+@media screen and (min-width: 900px) {
+
+	.namePage{
+		text-align: center;
+
+		font-weight: bold;
+		font-size: 20px;
+
+		margin-bottom: 2rem;
+		margin-top: 1rem;
+	}
+
+	.form{
+		display: flex;
+		flex-direction: column;
+
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+
+	.row{
+		flex: 1;
+		display: flex;
+		flex-direction: row;
+
+	}
+
+	.row div{
+		flex: 1;
+
+		margin: 5px;
+
+		width: 98%;
+	}
+
+	.row input{
+		height: 22px;
+
+		min-width: 98%;
+		max-width: 98%;
+	}
+
+	.row textarea{
+		height: 50px;
+
+		width: 99%;
+	}
+
+	.row label{
+		margin-right: 70%;
+	}
+
+	.button{
+		text-align: center;
+	}
+
+	.button button{
+		height: 3rem;
+		width: 8rem;
+
+		font-size: 1rem;
+		font-color: black;
+		font-weight: bold;
+
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+
+		border-radius: 15px;
+		border-width: 3px;
+
+		/*Tempo para efetuar a transição hover*/
+		transition: filter 0.2s;
+	}
+
+	/*O nth-child pega o primeiro e segundo botões dentro da class button*/
+	.button > button:nth-child(1){
+		background-color: #EB9989;
+
+		margin-right: 3rem;
+	}
+
+	.button > button:nth-child(2){
+		background-color: #AADB9B;
+	}
+
+	/*Aplica efeito de transição ao passar o mouse*/
+	.addPage button:hover{
+		filter: brightness(0.8);
+	}
+
 }
 
-.form{
-	display: flex;
-	flex-direction: column;
+@media screen and (max-width: 899px) and (orientation: portrait) {
+	.addPage{
+		width: 100%;
+		top: 0;
+	}
 
-	margin-left: 10%;
-	margin-right: 10%;
+	.namePage{
+		text-align: center;
+
+		font-weight: bold;
+		font-size: 17px;
+
+		margin-bottom: 2rem;
+		margin-top: 1rem;
+	}
+
+	.form{
+		display: flex;
+		flex-direction: column;
+
+		margin-left: 5%;
+	}
+
+	.row{
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+
+		text-align: justify;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.row div{
+		flex: 1;
+		margin: 10px;
+
+		width: 100%;
+	}
+
+	.row input{
+		height: 15px;
+
+		min-width: 98%;
+		max-width: 98%;
+
+		margin-top: 5px;
+	}
+
+	.row textarea{
+		height: 50px;
+
+		width: 98%;
+	}
+
+	.row label{
+		margin-right: 50%;
+	}
+
+	.button{
+		text-align: center;
+	}
+
+	.button button{
+		height: 3rem;
+		width: 6rem;
+
+		font-size: 1rem;
+		font-color: black;
+		font-weight: bold;
+
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+
+		border-radius: 15px;
+		border-width: 3px;
+
+		/*Tempo para efetuar a transição hover*/
+		transition: filter 0.2s;
+	}
+
+	/*O nth-child pega o primeiro e segundo botões dentro da class button*/
+	.button > button:nth-child(1){
+		background-color: #EB9989;
+
+		margin-right: 3rem;
+	}
+
+	.button > button:nth-child(2){
+		background-color: #AADB9B;
+	}
+
+	/*Aplica efeito de transição ao passar o mouse*/
+	.addPage button:hover{
+		filter: brightness(0.8);
+	}
 }
 
-.row{
-	flex: 1;
-	display: flex;
-	flex-direction: row;
 
-}
+@media screen and (max-width: 899px) and (orientation: landscape) {
+	.addPage{
+		width: 100%;
+		top: 0;
+	}
 
-.row div{
-	flex: 1;
+	.namePage{
+		text-align: center;
 
-	margin: 5px;
+		font-weight: bold;
+		font-size: 17px;
 
-	width: 98%;
-}
+		margin-bottom: 2rem;
+		margin-top: 1rem;
+	}
 
-.row input{
-	height: 22px;
+	.form{
+		display: flex;
+		flex-direction: column;
 
-	min-width: 98%;
-	max-width: 98%;
-}
+		margin-left: 5%;
+		margin-right: 5%;
+	}
 
-.row textarea{
-	height: 50px;
+	.row{
+		flex: 1;
+		display: flex;
+		flex-direction: column;
 
-	width: 99%;
-}
+		text-align: justify;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-.row label{
-	margin-right: 70%;
-}
+	.row div{
+		flex: 1;
+		margin: 10px;
 
-.button{
-	text-align: center;
-}
+		width: 100%;
+	}
 
-.button button{
-	height: 3rem;
-	width: 8rem;
+	.row input{
+		height: 25px;
 
-	font-size: 1rem;
-	font-color: black;
-	font-weight: bold;
-	
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+		min-width: 98%;
+		max-width: 98%;
 
-	border-radius: 15px;
-	border-width: 3px;
+		margin-top: 5px;
+	}
 
-	/*Tempo para efetuar a transição hover*/
-	transition: filter 0.2s;
-}
+	.row textarea{
+		height: 50px;
 
-/*O nth-child pega o primeiro e segundo botões dentro da class button*/
-.button > button:nth-child(1){
-	background-color: #EB9989;
+		width: 98%;
+	}
 
-	margin-right: 3rem;
-}
+	.row label{
+		margin-right: 50%;
+	}
 
-.button > button:nth-child(2){
-	background-color: #AADB9B;
-}
+	.button{
+		text-align: center;
+	}
 
-/*Aplica efeito de transição ao passar o mouse*/
-.addPage button:hover{
-	filter: brightness(0.8);
+	.button button{
+		height: 4rem;
+		width: 7rem;
+
+		font-size: 1rem;
+		font-color: black;
+		font-weight: bold;
+
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+
+		border-radius: 15px;
+		border-width: 3px;
+
+		/*Tempo para efetuar a transição hover*/
+		transition: filter 0.2s;
+	}
+
+	/*O nth-child pega o primeiro e segundo botões dentro da class button*/
+	.button > button:nth-child(1){
+		background-color: #EB9989;
+
+		margin-right: 3rem;
+	}
+
+	.button > button:nth-child(2){
+		background-color: #AADB9B;
+	}
+
+	/*Aplica efeito de transição ao passar o mouse*/
+	.addPage button:hover{
+		filter: brightness(0.8);
+	}
 }

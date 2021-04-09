@@ -1,81 +1,397 @@
-/*Estiliza a página de exibição dos clientes*/
-.nameFields{
-	text-align: center;
+@media screen and (min-width: 900px) {
 
-	font-weight: bold;
-	font-size: 20px;
+	/*Estiliza a página de exibição dos clientes*/
+	.nameFields{
+		text-align: center;
 
-	margin-bottom: 2rem;
-	margin-top: 1rem;
+		font-weight: bold;
+		font-size: 20px;
+
+		margin-bottom: 2rem;
+		margin-top: 1rem;
+	}
+
+	.fieldSearch{
+		text-align: right;
+		margin-right: 10px;
+	}
+
+	.fieldSearch input{
+		width: 20rem;
+		height: 1.5rem;
+	}
+
+	.fieldSearch button{
+		height: 1.9rem;
+	}
+
+	.fields{
+		display: flex;
+		flex-direction: row;
+
+		text-align: center;
+		justify-content: center;
+
+		font-weight: bold;
+		font-size: 19px;
+
+		left: 50%;
+		width: 100%;
+	}
+
+	.field{
+		flex: 1;
+
+		border: 2px solid;
+		border-color: #9DACF5;
+
+		height: 50px;
+	}
+
+	.customersList{
+		display: flex;
+		flex-direction: row;
+
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.customersList div{
+		flex: 1;
+
+		border: 2px solid;
+		border-color: #9DACF5;
+
+		background-color: #E1ECF4;
+
+		min-height: 40px;
+		height: auto;
+
+		transition: filter 0.2s;
+	}
+
+	.customersList:hover{
+		filter: brightness(0.8);
+	}
+
+	.customersList button{
+		margin-top: 5px;
+
+		width: 65px;
+		height: 30px;
+	}
+
 }
 
-.fieldSearch{
-	text-align: right;
-	margin-right: 10px;
+
+@media screen and (max-width: 899px) and (orientation: portrait) {
+	body{
+		width: 260%;
+		top: 0;
+	}
+
+	.nameFields{
+		text-align: center;
+
+		font-weight: bold;
+		font-size: 17px;
+
+		margin-bottom: 2rem;
+		margin-top: 1rem;
+	}
+
+	.fieldSearch{
+		text-align: center;
+	}
+
+	.fieldSearch input{
+		width: 10rem;
+		height: 1.5rem;
+	}
+
+	.fieldSearch button{
+		height: 1.9rem;
+	}
+
+	.fields{
+		display: flex;
+		flex-direction: row;
+
+		text-align: center;
+		justify-content: center;
+
+		font-weight: bold;
+		font-size: 15px;
+
+		left: 0;
+		width: 100%;
+	}
+
+	.field{
+
+		border: 2px solid;
+		border-color: #9DACF5;
+
+		height: 40px;
+		min-height: 30px;
+		min-width: 100px;
+	}
+
+	.field > div:nth-child(1){
+		flex: 1;
+	}
+
+	.field > div:nth-child(2){
+		flex: 4;
+	}
+
+	.field > div:nth-child(3){
+		flex: 4;
+	}
+
+	.field > div:nth-child(4){
+		flex: 4;
+	}
+
+	.field > div:nth-child(5){
+		flex: 4;
+	}
+
+	.field > div:nth-child(6){
+		flex: 4;
+	}
+
+	.field > div:nth-child(7){
+		flex: 4;
+	}
+
+	.field > div:nth-child(8){
+		flex: 4;
+	}
+
+
+	.customersList{
+		display: flex;
+		flex-direction: row;
+
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+
+		width: 100%;
+	}
+
+	.customersList div{
+		
+
+		border: 2px solid;
+		border-color: #9DACF5;
+
+		background-color: #E1ECF4;
+
+		min-height: 80px;
+		height: auto;
+		min-width: 100px;
+
+		transition: filter 0.2s;
+	}
+
+	.customersList > div:nth-child(1){
+		flex: 1;
+	}
+
+	.customersList > div:nth-child(2){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(3){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(4){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(5){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(6){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(7){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(8){
+		flex: 4;
+	}
+
+	.customersList:hover{
+		filter: brightness(0.8);
+	}
+
+	.customersList button{
+		margin-top: 10%;
+
+		width: 85%;
+	}
 }
 
-.fieldSearch input{
-	width: 20rem;
-	height: 1.5rem;
-}
+@media screen and (max-width: 899px) and (orientation: landscape) {
+	body{
+		width: 138%;
+		top: 0;
+	}
 
-.fieldSearch button{
-	height: 1.9rem;
-}
+	.nameFields{
+		text-align: center;
 
-.fields{
-	display: flex;
-	flex-direction: row;
+		font-weight: bold;
+		font-size: 24px;
 
-	text-align: center;
-	justify-content: center;
+		margin-bottom: 2rem;
+		margin-top: 1rem;
+	}
 
-	font-weight: bold;
-	font-size: 19px;
+	.fieldSearch{
+		text-align: center;
+		margin-bottom: 2rem;
+	}
 
-	left: 50%;
-	width: 100%;
-}
+	.fieldSearch input{
+		width: 15rem;
+		height: 2rem;
+	}
 
-.field{
-	flex: 1;
+	.fieldSearch button{
+		height: 2.3rem;
+	}
 
-	border: 2px solid;
-	border-color: #9DACF5;
+	.fields{
+		display: flex;
+		flex-direction: row;
 
-	height: 50px;
-}
+		text-align: center;
+		justify-content: center;
 
-.customersList{
-	display: flex;
-	flex-direction: row;
+		font-weight: bold;
+		font-size: 15px;
 
-	text-align: center;
-	align-items: center;
-	justify-content: center;
-}
+		left: 0;
+		width: 100%;
+	}
 
-.customersList div{
-	flex: 1;
+	.field{
 
-	border: 2px solid;
-	border-color: #9DACF5;
+		border: 2px solid;
+		border-color: #9DACF5;
 
-	background-color: #E1ECF4;
+		height: 40px;
+		min-height: 30px;
+		min-width: 100px;
+	}
 
-	min-height: 40px;
-	height: auto;
+	.field > div:nth-child(1){
+		flex: 1;
+	}
 
-	transition: filter 0.2s;
-}
+	.field > div:nth-child(2){
+		flex: 4;
+	}
 
-.customersList:hover{
-	filter: brightness(0.8);
-}
+	.field > div:nth-child(3){
+		flex: 4;
+	}
 
-.customersList button{
-	margin-top: 5px;
+	.field > div:nth-child(4){
+		flex: 4;
+	}
 
-	width: 65px;
-	height: 30px;
+	.field > div:nth-child(5){
+		flex: 4;
+	}
+
+	.field > div:nth-child(6){
+		flex: 4;
+	}
+
+	.field > div:nth-child(7){
+		flex: 4;
+	}
+
+	.field > div:nth-child(8){
+		flex: 4;
+	}
+
+
+	.customersList{
+		display: flex;
+		flex-direction: row;
+
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+
+		width: 100%;
+	}
+
+	.customersList div{
+		
+
+		border: 2px solid;
+		border-color: #9DACF5;
+
+		background-color: #E1ECF4;
+
+		min-height: 80px;
+		height: auto;
+		min-width: 100px;
+
+		transition: filter 0.2s;
+	}
+
+	.customersList > div:nth-child(1){
+		flex: 1;
+	}
+
+	.customersList > div:nth-child(2){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(3){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(4){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(5){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(6){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(7){
+		flex: 4;
+	}
+
+	.customersList > div:nth-child(8){
+		flex: 4;
+	}
+
+	.customersList:hover{
+		filter: brightness(0.8);
+	}
+
+	.customersList button{
+		margin-top: 10%;
+
+		width: 85%;
+	}
 }

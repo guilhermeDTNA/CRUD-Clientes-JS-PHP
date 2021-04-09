@@ -11,7 +11,7 @@ Entre as características principais, estão:
 <li>O CPF é validado através de uma função apropriada, o e-mail, nome e observação possuem restrições de preenchimento, sendo que todos só são cadastrados após estarem em confomidade.</li>
 </ul> 
 
-Para executar o sistema, é necessário ter um servidor web instalado em máquina local, como o Apache.
+Para executar o sistema, é necessário ter um servidor web instalado em máquina local, como o Apache. Caso queira acessar o sistema antes de executá-lo em ambiente local, ele está disponível <a href="https://clientes-js-php.herokuapp.com/">neste link</a>, senão, siga os passos abaixo:
 
 <b>Passo 1:</b> Para instalar o Apache em ambiente Linux, realize os passos disponíveis em: <a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04-pt">https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04-pt</a>. Para Windows, existe o tutorial: <a href="https://pt.wikihow.com/Instalar-o-Apache-Web-Server-em-um-Computador-com-Windows">https://pt.wikihow.com/Instalar-o-Apache-Web-Server-em-um-Computador-com-Windows</a>. 
 
